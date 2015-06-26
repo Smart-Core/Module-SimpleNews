@@ -2,9 +2,9 @@
 
 namespace SmartCore\Module\SimpleNews\Controller;
 
+use Pagerfanta\Adapter\DoctrineORMAdapter;
 use Pagerfanta\Exception\NotValidCurrentPageException;
 use Pagerfanta\Pagerfanta;
-use Smart\CoreBundle\Pagerfanta\SimpleDoctrineORMAdapter;
 use SmartCore\Bundle\CMSBundle\Module\NodeTrait;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,7 +30,7 @@ class SimpleNewsController extends Controller
             $page = $request->query->get('page', 1);
         }
 
-        $pagerfanta = new Pagerfanta(new SimpleDoctrineORMAdapter(
+        $pagerfanta = new Pagerfanta(new DoctrineORMAdapter(
             $this->getDoctrine()->getRepository('SimpleNewsModule:News')->getFindAllEnablesQuery()
         ));
         $pagerfanta->setMaxPerPage($this->node->getParam('items_per_page', 10));
