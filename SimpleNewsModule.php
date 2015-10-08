@@ -9,6 +9,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class SimpleNewsModule extends ModuleBundle
 {
+    protected $adminMenuBeforeCode = '<i class="fa fa-file-text-o"></i>';
+
     /**
      * Действие при создании ноды.
      *
