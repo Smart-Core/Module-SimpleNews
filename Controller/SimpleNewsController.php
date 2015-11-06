@@ -45,7 +45,7 @@ class SimpleNewsController extends Controller
             $this->get('cms.breadcrumbs')->add(null, $this->get('translator')->trans('Page').': '.$page);
         }
 
-        return $this->render('SimpleNewsModule::news.html.twig', ['news' => $pagerfanta]);
+        return $this->get('twig')->render('SimpleNewsModule::news.html.twig', ['news' => $pagerfanta]);
     }
 
     /**
@@ -74,6 +74,6 @@ class SimpleNewsController extends Controller
             ->setTitle('Добавить новость')
             ->setUri($this->generateUrl('smart_module.news_admin.create'));
 
-        return $this->render('SimpleNewsModule::item.html.twig', ['item' => $item]);
+        return $this->get('twig')->render('SimpleNewsModule::item.html.twig', ['item' => $item]);
     }
 }

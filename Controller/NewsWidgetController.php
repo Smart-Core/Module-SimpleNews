@@ -24,7 +24,7 @@ class NewsWidgetController extends Controller
         $cacheKey = md5('smart_module.news.widget_last'.$count);
 
         if (false === $news = $this->getCacheService()->get($cacheKey)) {
-            $news = $this->renderView('SimpleNewsModule:Widget:last.html.twig', [
+            $news = $this->get('twig')->render('SimpleNewsModule:Widget:last.html.twig', [
                 'news' => $this->getDoctrine()->getRepository('SimpleNewsModule:News')->findLastEnabled($count),
             ]);
 
