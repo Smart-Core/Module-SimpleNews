@@ -2,7 +2,7 @@
 
 namespace SmartCore\Module\SimpleNews\Controller;
 
-use Knp\RadBundle\Controller\Controller;
+use Smart\CoreBundle\Controller\Controller;
 use SmartCore\Module\SimpleNews\Entity\News;
 use SmartCore\Module\SimpleNews\Entity\NewsInstance;
 use SmartCore\Module\SimpleNews\Form\Type\NewsFormType;
