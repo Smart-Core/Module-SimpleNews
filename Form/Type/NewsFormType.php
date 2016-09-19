@@ -2,6 +2,7 @@
 
 namespace SmartCore\Module\SimpleNews\Form\Type;
 
+use SmartCore\Module\SimpleNews\Entity\News;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -21,7 +22,7 @@ class NewsFormType extends AbstractType
         ;
 
         if ($newsInstance->isUseImage()) {
-            $builder->add('image', new ImageFormType(), [
+            $builder->add('image', ImageFormType::class, [
                 'label' => 'Image',
                 'required' => false,
                 'data' => $news->getImageId(),
@@ -43,7 +44,7 @@ class NewsFormType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'data_class' => 'SmartCore\Module\SimpleNews\Entity\News',
+            'data_class' => News::class,
         ]);
     }
 

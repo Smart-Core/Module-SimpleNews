@@ -6,6 +6,7 @@ use Smart\CoreBundle\Controller\Controller;
 use SmartCore\Module\SimpleNews\Entity\News;
 use SmartCore\Module\SimpleNews\Entity\NewsInstance;
 use SmartCore\Module\SimpleNews\Form\Type\NewsFormType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -52,9 +53,9 @@ class NewsAdminController extends Controller
         $news = new News();
         $news->setInstance($newsInstance);
 
-        $form = $this->createForm(new NewsFormType(), $news);
-        $form->add('create', 'submit', ['attr' => ['class' => 'btn btn-success']]);
-        $form->add('cancel', 'submit', ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']]);
+        $form = $this->createForm(NewsFormType::class, $news);
+        $form->add('create', SubmitType::class, ['attr' => ['class' => 'btn btn-success']]);
+        $form->add('cancel', SubmitType::class, ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']]);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
@@ -93,10 +94,10 @@ class NewsAdminController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        $form = $this->createForm(new NewsFormType(), $this->getDoctrine()->getManager()->find('SimpleNewsModule:News', $id));
-        $form->add('update', 'submit', ['attr' => ['class' => 'btn btn-success']]);
-        $form->add('delete', 'submit', ['attr' => ['class' => 'btn btn-danger', 'onclick' => "return confirm('Вы уверены, что хотите удалить запись?')"]]);
-        $form->add('cancel', 'submit', ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']]);
+        $form = $this->createForm(NewsFormType::class, $this->getDoctrine()->getManager()->find('SimpleNewsModule:News', $id));
+        $form->add('update', SubmitType::class, ['attr' => ['class' => 'btn btn-success']]);
+        $form->add('delete', SubmitType::class, ['attr' => ['class' => 'btn btn-danger', 'onclick' => "return confirm('Вы уверены, что хотите удалить запись?')"]]);
+        $form->add('cancel', SubmitType::class, ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']]);
 
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
