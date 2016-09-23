@@ -3,6 +3,7 @@
 namespace SmartCore\Module\SimpleNews\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class ImageFormType extends AbstractType
@@ -16,10 +17,10 @@ class ImageFormType extends AbstractType
 
     public function getParent()
     {
-        return 'file';
+        return FileType::class;
     }
 
-    public function getName()
+    public function getBlockPrefix()
     {
         return 'smart_module_simple_news_image';
     }
