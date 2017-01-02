@@ -69,7 +69,7 @@ class NewsAdminController extends Controller
             }
 
             if ($form->isValid()) {
-                return $this->saveItemAndRedirect($request, $form->getData(), 'smart_module.news_admin', 'Новость создана.');
+                return $this->saveItemAndRedirect($form->getData(), 'smart_module.news_admin', 'Новость создана.');
             }
         }
 
@@ -143,7 +143,7 @@ class NewsAdminController extends Controller
                     $mc->remove($oldImageId);
                 }
 
-                return $this->saveItemAndRedirect($request, $news, 'smart_module.news_admin', 'Новость сохранена.');
+                return $this->saveItemAndRedirect($news, 'smart_module.news_admin', 'Новость сохранена.');
             }
         }
 
@@ -165,21 +165,19 @@ class NewsAdminController extends Controller
     }
 
     /**
-     * Сохранение записи.
-     *
      * @param int           $item
      * @param string        $redirect_to
      * @param string|null   $notice
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
-     *
-     * @todo переделать $request на сервис 'request_stack'
      */
-    protected function saveItemAndRedirect(Request $request, $item, $redirect_to, $notice = null)
+    protected function saveItemAndRedirect($item, $redirect_to, $notice = null)
     {
         $this->persist($item, true);
 
-        $this->get('session')->getFlashBag()->add('success', $notice);
+        $this->addFlash('success', $notice);
+
+        $request = $this->get('request_stack')->getCurrentRequest();
 
         $url = $request->query->has('redirect_to')
             ? $request->query->get('redirect_to')
