@@ -26,9 +26,9 @@ class NewsAdminController extends Controller
             break;
         }
 
-        return $this->render('SimpleNewsModule:Admin:index.html.twig', [
+        return $this->render('SimpleNewsModuleBundle:Admin:index.html.twig', [
             'folderPath' => $folderPath,
-            'news'       => $em->getRepository('SimpleNewsModule:News')->findBy([], ['id' => 'DESC']),
+            'news'       => $em->getRepository('SimpleNewsModuleBundle:News')->findBy([], ['id' => 'DESC']),
         ]);
     }
 
@@ -43,7 +43,7 @@ class NewsAdminController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         // @todo пока временная заглушка для экземпляров новостных лент.
-        $newsInstance = $em->getRepository('SimpleNewsModule:NewsInstance')->findOneBy([]);
+        $newsInstance = $em->getRepository('SimpleNewsModuleBundle:NewsInstance')->findOneBy([]);
 
         if (empty($newsInstance)) {
             $newsInstance = new NewsInstance();
@@ -80,7 +80,7 @@ class NewsAdminController extends Controller
             break;
         }
 
-        return $this->render('SimpleNewsModule:Admin:create.html.twig', [
+        return $this->render('SimpleNewsModuleBundle:Admin:create.html.twig', [
             'form'       => $form->createView(),
             'folderPath' => $folderPath,
         ]);
@@ -94,7 +94,7 @@ class NewsAdminController extends Controller
      */
     public function editAction(Request $request, $id)
     {
-        $form = $this->createForm(NewsFormType::class, $this->getDoctrine()->getManager()->find('SimpleNewsModule:News', $id));
+        $form = $this->createForm(NewsFormType::class, $this->getDoctrine()->getManager()->find('SimpleNewsModuleBundle:News', $id));
         $form->add('update', SubmitType::class, ['attr' => ['class' => 'btn btn-success']]);
         $form->add('delete', SubmitType::class, ['attr' => ['class' => 'btn btn-danger', 'onclick' => "return confirm('Вы уверены, что хотите удалить запись?')"]]);
         $form->add('cancel', SubmitType::class, ['attr' => ['class' => 'btn-default', 'formnovalidate' => 'formnovalidate']]);
@@ -158,7 +158,7 @@ class NewsAdminController extends Controller
             }
         }
 
-        return $this->render('SimpleNewsModule:Admin:edit.html.twig', [
+        return $this->render('SimpleNewsModuleBundle:Admin:edit.html.twig', [
             'form'     => $form->createView(),
             'itemPath' => $itemPath,
         ]);

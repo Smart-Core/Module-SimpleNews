@@ -31,7 +31,7 @@ class SimpleNewsController extends Controller
         }
 
         $pagerfanta = new Pagerfanta(new DoctrineORMAdapter(
-            $this->getDoctrine()->getRepository('SimpleNewsModule:News')->getFindAllEnablesQuery()
+            $this->getDoctrine()->getRepository('SimpleNewsModuleBundle:News')->getFindAllEnablesQuery()
         ));
         $pagerfanta->setMaxPerPage($this->node->getParam('items_per_page', 10));
 
@@ -45,7 +45,7 @@ class SimpleNewsController extends Controller
             $this->get('cms.breadcrumbs')->add(null, $this->get('translator')->trans('Page').': '.$page);
         }
 
-        return $this->get('twig')->render('SimpleNewsModule::news.html.twig', ['news' => $pagerfanta]);
+        return $this->get('twig')->render('SimpleNewsModuleBundle::news.html.twig', ['news' => $pagerfanta]);
     }
 
     /**
@@ -57,7 +57,7 @@ class SimpleNewsController extends Controller
      */
     public function itemAction($slug)
     {
-        $item = $this->getDoctrine()->getRepository('SimpleNewsModule:News')->findOneBy(['slug' => $slug]);
+        $item = $this->getDoctrine()->getRepository('SimpleNewsModuleBundle:News')->findOneBy(['slug' => $slug]);
 
         if (empty($item)) {
             throw $this->createNotFoundException('News not found');
@@ -74,6 +74,6 @@ class SimpleNewsController extends Controller
             ->setTitle('Добавить новость')
             ->setUri($this->generateUrl('smart_module.news_admin.create'));
 
-        return $this->get('twig')->render('SimpleNewsModule::item.html.twig', ['item' => $item]);
+        return $this->get('twig')->render('SimpleNewsModuleBundle::item.html.twig', ['item' => $item]);
     }
 }

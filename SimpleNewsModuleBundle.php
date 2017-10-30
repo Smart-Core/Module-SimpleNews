@@ -7,7 +7,7 @@ use SmartCore\Bundle\CMSBundle\Module\ModuleBundle;
 use SmartCore\Module\SimpleNews\DependencyInjection\Compiler\FormPass;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class SimpleNewsModule extends ModuleBundle
+class SimpleNewsModuleBundle extends ModuleBundle
 {
     protected $adminMenuBeforeCode = '<i class="fa fa-file-text-o"></i>';
 
